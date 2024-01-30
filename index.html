@@ -1,0 +1,29 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URLs List</title>
+</head>
+<body>
+  <h1>URLs List</h1>
+  <ul id="urlsList"></ul>
+
+  <script>
+    // Fetch data from the JSON Server endpoint
+    fetch('http://localhost:3000/urls')
+      .then(response => response.json())
+      .then(data => {
+        // Process the data and append to the HTML page
+        const urlsList = document.getElementById('urlsList');
+        data.forEach(url => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `ID: ${url.id}, Original URL: ${url.originalUrl}, Short Name: ${url.shortName}, Timestamp: ${url.timestamp}`;
+          urlsList.appendChild(listItem);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+</body>
+</html>
